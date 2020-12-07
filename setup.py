@@ -10,7 +10,7 @@ with open(path.join(this_directory, 'README.md'), 'r') as f:
 
 setup(
     name='ipylogging',
-    version='2020.341.0',
+    version='2020.342.1',
     author='Bill Allen',
     author_email='photo.allen@gmail.com',
     description='Easy log messages in Jupyter notebooks.',

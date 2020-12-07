@@ -2,6 +2,8 @@
 
 import sys
 
+from logging import Formatter
+
 if sys.version_info.major == 3:
     from html import escape
 elif sys.version_info.major == 2:
@@ -18,10 +20,26 @@ def _in_ipython():
 
         if get_ipython() is not None:
             return True
-        else:
-            return False
+
+        return False
 
     except ImportError:
         return False
 
     return False
+
+def _make_formatter(show_time, show_name, show_level):
+    parts = []
+
+    if show_time:
+        parts.append('%(asctime)s')
+
+    if show_name:
+        parts.append('%(name)s')
+
+    if show_level:
+        parts.append('%(levelname)s')
+
+    parts.append('%(message)s')
+
+    return Formatter(' '.join(parts))

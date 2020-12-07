@@ -2,20 +2,19 @@
 
 import logging
 
-from .utils import _in_ipython
+from .utils import _in_ipython, _make_formatter
 
 if _in_ipython():
-    from .logger import IPythonHandler
+    from .handler import IPythonHandler
 
-def get_simple_logger():
-    logger = logging.getLogger('ipylogging')
+def get_logger(name='ipylogging', show_time=True, show_name=False, show_level=True):
+    logger = logging.getLogger(name)
+    formatter = _make_formatter(show_time, show_name, show_level)
 
     if _in_ipython():
         handler = IPythonHandler()
-        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     else:
         handler = logging.StreamHandler()
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
     handler.setFormatter(formatter)
     logger.setLevel(logging.DEBUG)
